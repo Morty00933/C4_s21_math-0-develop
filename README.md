@@ -1,102 +1,178 @@
-# s21_math  
+Изображения в начале `README.md` — это так называемые "шильдики" (badges) от сервиса Shields.io. Они используются на GitHub для визуального отображения информации о проекте, например, языка программирования, статуса сборки или лицензии. У вас они могли не загрузиться из-за проблем с интернет-соединением или если вы просматриваете текст вне GitHub, где эти шильдики автоматически рендерятся. В текстовом виде они выглядят как код Markdown, например:
 
-> При старте работы над проектом просим вас постараться хронометрировать время работы над проектом.
-> По завершении работы над проектом просим вас ответить на два вопроса [в этом опросе](https://forms.gle/6nduWymT5Stz9N9D8)
+```
+![C](https://img.shields.io/badge/C-11-blue.svg)
+```
 
-Implementation of your own version of the math.h library.  
+На GitHub это превращается в маленькую цветную метку с текстом "C 11". Если они не отображаются, это не критично — они просто добавляют визуальный стиль.
 
-The russian version of the task can be found in the repository.
+Ниже — версия `README.md` на русском языке, адаптированная и красиво оформленная:
 
-## Contents
-0. [Preamble](#preamble)
-1. [Chapter I](#chapter-i) \
-   1.1. [Introduction](#introduction)
-2. [Chapter II](#chapter-ii) \
-   2.1. [Information](#information)
-3. [Chapter III](#chapter-iii) \
-   3.1. [Part 1](#part-1-implementing-the-mathh-library-functions)
+---
 
+# s21_math
 
-## Preamble  
+![C](https://img.shields.io/badge/C-11-blue.svg) ![Лицензия](https://img.shields.io/badge/Лицензия-MIT-green.svg) ![Статус сборки](https://img.shields.io/badge/Сборка-Успешно-brightgreen.svg)
 
-![s21_math](misc/eng/s21_math.png)
+Библиотека `s21_math` — это собственная реализация стандартной математической библиотеки C (`math.h`), созданная в рамках проекта School 21. Она включает набор математических функций с высокой точностью, таких как тригонометрические, экспоненциальные, логарифмические и утилитарные. Написана на C11 и поддерживает кросс-платформенность для Linux и macOS.
 
-Planet Earth, USA, New York State, 1956.
+## Содержание
 
-I love English breakfast: crispy slice of bread and beans, juicy sausages with scrambled eggs, and The New York Times. It would have been an ordinary spring morning if I hadn't stumbled upon a little column in the newspaper written by a Stanford University professor, that caught my attention. William Shockley, who is famous in small circles of the physical science community, the inventor of the transistor, had posted a job opening in a laboratory for mass production of the latest transistors and dinistors.
-Without thinking long, I called the number mentioned in the paper:
+- [Особенности](#особенности)
+- [Установка](#установка)
+- [Использование](#использование)
+- [Поддерживаемые функции](#поддерживаемые-функции)
+- [Тестирование](#тестирование)
+- [Покрытие кода](#покрытие-кода)
+- [Как внести вклад](#как-внести-вклад)
+- [Лицензия](#лицензия)
 
-*- Good evening, William, I'm calling about the vacancy you left in the newspaper, do you have a minute?*
+## Особенности
 
-*-- Yes, of course, I'm very glad I didn't waste my money for nothing and at least someone called! I must point out right away all the specifics of our future collaboration: production will take place at our site in Mountain View, near Palo Alto, a place with a rural lifestyle, but I hope it’s not a problem, Mr...?*
+- **Высокая точность**: Использует `long double` для вычислений.
+- [x] **Кросс-платформенность**: Работает на macOS (Darwin) и Linux.
+- [x] **Тестирование**: Юнит-тесты с использованием библиотеки `Check` для проверки корректности.
+- [x] **Покрытие кода**: Отчёты о покрытии с помощью `gcov` и `lcov`.
+- [x] **Собственные константы**: Определены `s21_PI`, `s21_INF`, `s21_NAN` и др.
+- [x] **Обработка ошибок**: Корректная работа с `NaN`, бесконечностью и некорректными входными данными.
 
-*- Last, Mr. J. Last from MIT. I am aware of that, and it does not bother me a bit, so when can I come for my interview?*
+## Установка
 
-*-- Good, very good! I don't have time to be constantly in touch and interview people from other cities right now, so send me to the address left in the paper the result of the work, that I'll give you now...*
+Для сборки и использования `s21_math` выполните следующие шаги:
 
-*- I'm all ears...*
+### Требования
 
-*-- Our case requires powerful mathematical tools that can be described in machine programming language - all sorts of mathematical operations and functions: trigonometric, logarithmic, exponential, and others of your choice. It doesn't matter how, but you have to do it...* \
-*Now if you’ll excuse me, I have to say goodbye, I have a second line, I'm waiting for your answer! Thank you!*
+- Компилятор GCC
+- Утилита Make
+- Библиотека Check (`libcheck` для тестов)
+- lcov (для отчётов о покрытии, опционально)
+- cppcheck и clang-format (для проверки качества кода, опционально)
 
-*- Have a nice day!*
+Установка на Linux:
+```bash
+sudo apt-get install gcc make libcheck-dev lcov cppcheck clang-format
+```
 
-Well, I have to do it, I feel in my bones that a transistor revolution in mathematical computing is coming and I have to be on the front line!
+Установка на macOS:
+```bash
+brew install gcc make check lcov cppcheck clang-format
+```
 
-## Chapter I  
+### Инструкция по сборке
 
-## Introduction
+1. Склонируйте репозиторий:
+   ```bash
+   git clone https://github.com/yourusername/s21_math.git
+   cd s21_math
+   ```
 
-In this project you will develop your own version of the standard math.h library in the C programming language. This library implements basic mathematical operations, which are then used in various algorithms. As part of the project you will learn the basics of computational methods and solidify knowledge of structured programming.
+2. Соберите библиотеку и запустите тесты:
+   ```bash
+   make all
+   ```
 
-## Chapter II
+3. (Опционально) Сгенерируйте отчёт о покрытии кода:
+   ```bash
+   make gcov_report
+   ```
 
-## Information
+4. Очистите временные файлы:
+   ```bash
+   make clean
+   ```
 
-C mathematical operations are a group of functions in the standard library of the C programming language implementing basic mathematical functions. All functions use floating-point numbers in one manner or another. Different C standards provide different, albeit backwards-compatible, sets of functions. Any functions that operate on angles use radians as the unit of angle.
+В результате будет создана статическая библиотека `s21_math.a`, которую можно использовать в ваших проектах.
 
-### Overview of some "math.h" functions
+## Использование
 
-| No. | Function | Description |
-| --- | -------- | ----------- |
-| 1 | `int abs(int x)` | computes absolute value of an integer value |
-| 2 | `long double acos(double x)` | computes arc cosine |
-| 3 | `long double asin(double x)` | computes arc sine |
-| 4 | `long double atan(double x)` | computes arc tangent |
-| 5 | `long double ceil(double x)` | returns the nearest integer not less than the given value |
-| 6 | `long double cos(double x)` | computes cosine |
-| 7 | `long double exp(double x)` | returns e raised to the given power |
-| 8 | `long double fabs(double x)` | computes absolute value of a floating-point value |
-| 9 | `long double floor(double x)` | returns the nearest integer not greater than the given value |
-| 10 | `long double fmod(double x, double y)` | remainder of the floating-point division operation |
-| 11 | `long double log(double x)` | computes natural logarithm |
-| 12 | `long double pow(double base, double exp)` | raises a number to the given power |
-| 13 | `long double sin(double x)` | computes sine |
-| 14 | `long double sqrt(double x)` | computes square root |
-| 15 | `long double tan(double x)` | computes tangent |  
+Подключите заголовочный файл `s21_math.h` и свяжите с `s21_math.a`. Пример:
 
+```c
+#include "s21_math.h"
+#include <stdio.h>
 
-## Chapter III
+int main() {
+    double x = 0.5;
+    printf("s21_sin(%.2f) = %.10Lf\n", x, s21_sin(x));
+    printf("s21_pow(2, 3) = %.10Lf\n", s21_pow(2.0, 3.0));
+    return 0;
+}
+```
 
-## Part 1. Implementing the math.h library functions
+Компиляция и запуск:
+```bash
+gcc -std=c11 main.c s21_math.a -o my_program
+./my_program
+```
 
-The functions of the math.h library must be implemented (only those directly described [above](#overview-of-some-mathh-functions)):
+## Поддерживаемые функции
 
-- The library must be developed in C language of C11 standard using gcc compiler
-- The library code must be located in the src folder on the develop branch
-- Do not use outdated and legacy language constructions and library functions. Pay attention to the legacy and obsolete marks in the official documentation on the language and the libraries used. Use the POSIX.1-2017 standard.
-- When writing code it is necessary to follow the Google style
-- Make it as a static library (with the s21_math.h header file)
-- The library must be developed according to the principles of structured programming; code duplication must be avoided
-- Use prefix s21_ before each function
-- Prepare full coverage of library functions code with unit-tests with the Check library  
-- Unit-tests must check the results of your implementation by comparing them with the implementation of the standard math.h library
-- Unit tests must cover at least 80% of each function (checked using gcov)
-- Provide a Makefile for building the library and tests (with the targets all, clean, test, s21_math.a, gcov_report)
-- The gcov_report target should generate a gcov report in the form of an html page. Unit tests must be run with gcov flags to do this  
-- It is forbidden to copy the implementation of the standard math.h library and to use it anywhere, except unit-tests
-- You must follow the logic of the standard library (in terms of checks, working with memory and behavior in emergency situations - tests will help you with that)
-- The total verifiable accuracy is 16 significant digits
-- Verifiable accuracy of the fractional part is up to 6 decimal places.
+| Функция          | Описание                               |
+|------------------|----------------------------------------|
+| `s21_abs`        | Абсолютное значение целого числа       |
+| `s21_fabs`       | Абсолютное значение числа с плавающей точкой |
+| `s21_ceil`       | Округление вверх до целого             |
+| `s21_floor`      | Округление вниз до целого              |
+| `s21_fmod`       | Остаток от деления чисел с плавающей точкой |
+| `s21_sin`        | Синус угла (в радианах)                |
+| `s21_cos`        | Косинус угла (в радианах)              |
+| `s21_tan`        | Тангенс угла (в радианах)              |
+| `s21_asin`       | Арксинус (обратный синус)              |
+| `s21_acos`       | Арккосинус (обратный косинус)          |
+| `s21_atan`       | Арктангенс (обратный тангенс)          |
+| `s21_sqrt`       | Квадратный корень                      |
+| `s21_exp`        | Экспонента (e^x)                     |
+| `s21_log`        | Натуральный логарифм (по основанию e)  |
+| `s21_pow`        | Возведение в степень (base^exp)        |
 
-💡 [Tap here](https://forms.yandex.ru/u/6357d9355d2a06307fd4c1f6/) **to leave your feedback on the project**. Pedago Team really tries to make your educational experience better.
+Специальные константы:
+- `s21_PI`, `s21_NPI` (отрицательное PI)
+- `s21_INF`, `s21_NEG_INF`, `s21_NAN`
+- `s21_EPSILON`, `s21_TOLERANCE` и др.
+
+## Тестирование
+
+Библиотека включает набор тестов на основе `Check`. Для запуска тестов:
+
+```bash
+make test
+```
+
+### Примеры тестов
+
+- `s21_sin(0)` → `0`
+- `s21_pow(2, 3)` → `8`
+- `s21_sqrt(-1)` → `NaN`
+- `s21_exp(s21_INF)` → `s21_INF`
+
+Тесты проверяют как обычные случаи, так и граничные значения.
+
+## Покрытие кода
+
+Для генерации отчёта о покрытии кода:
+
+```bash
+make gcov_report
+```
+
+Отчёт будет сохранён в папке `report/` в виде HTML-файла `index.html`. Откройте его в браузере для просмотра.
+
+## Как внести вклад
+
+Мы рады вашим улучшениям! Чтобы внести вклад:
+
+1. Сделайте форк репозитория.
+2. Создайте новую ветку (`git checkout -b feature/ваше-улучшение`).
+3. Внесите изменения и закоммитьте (`git commit -m "Добавлено улучшение"`).
+4. Отправьте изменения в свой форк (`git push origin feature/ваше-улучшение`).
+5. Откройте Pull Request.
+
+Убедитесь, что код соответствует стандарту C11 и проходит все тесты. Используйте `make check` для проверки качества и утечек памяти.
+
+## Лицензия
+
+Проект распространяется под лицензией MIT. Подробности см. в файле [LICENSE](LICENSE).
+
+---
+
+Эта версия на русском языке сохраняет структуру и стиль оригинала, адаптируясь к русскоязычной аудитории. Укажите свой GitHub-адрес в ссылке для клонирования (`https://github.com/yourusername/s21_math.git`). Если нужны изменения, дайте знать!
